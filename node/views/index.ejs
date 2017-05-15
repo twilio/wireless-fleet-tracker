@@ -1,0 +1,71 @@
+<h1>Active Vehicles</h1>
+
+<% if (vehicles.length == 0) { %>
+  <h3>There are currently no vehicles on the road.</h3>
+<% } %>
+
+<% vehicles.forEach(function(vehicle) { %>
+
+  <div class="jumbotron vehicle vehicle<%= vehicle.info.id %>">
+    <h3><%= vehicle.info.name %> <a href="/vehicle/<%= vehicle.info.id %>">(view past drives)</a></h3>
+    <h4>Current trip time: <span class="runtime">0</span></h4>
+    <div class="row map-cont">
+      <div class="col-lg-12">
+        <div class="map" id="map<%= vehicle.info.id %>"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-lg-offset-1">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Trip Distance</h3>
+          </div>
+          <div class="panel-body miles">
+            <span>00</span> miles
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">Average Speed</h3>
+          </div>
+          <div class="panel-body speed">
+            <span>00</span> mph
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Hard Brakes</h3>
+          </div>
+          <div class="panel-body brake">
+            <span>00</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Driver Score</h3>
+          </div>
+          <div class="panel-body driver_score">
+            <span>00</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Fuel Guage</h3>
+          </div>
+          <div class="panel-body fuel">
+            <span>00</span>%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% }); %>
