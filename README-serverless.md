@@ -8,7 +8,7 @@ Serverless _Twilio Fleet Tracker_ involes 3 separate development process
 
 ## Preparations
 
-- https://code.hq.twilio.com/zmiao/twilio-runtime-utils
+- https://github.com/hellwolf/twilio-runtime-utils
 - build twilio-runtime-utils with `make build`
 - setup PATH to twilio-runtime-utils.sh shell script
 - checkout `twilio-connected-devices` branch of wireless-co-pilot https://code.hq.twilio.com/zmiao/wireless-co-pilot/tree/twilio-connected-devices
