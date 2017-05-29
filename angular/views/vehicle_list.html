@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1 id="tables">Vehicles</h1>
+    </div>
+    <div class="bs-component">
+      <table class="table table-striped table-hover ">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+<!--
+            <th>Twilio SIM SID</th>
+-->
+            <th>Key</th>
+            <th>Created</th>
+            <th>Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="vehicle in vehicles" class="jumbotron vehicle vehicle{{vehicle.info.id}}" ng-class="{'text-success': vehicleAdded.info.id === vehicle.info.id}">
+            <td>{{ vehicle.info.id }}</td>
+            <td>{{ vehicle.info.name }}</td>
+<!--
+            <td>{{ vehicle.info.sim_sid }}</td>
+            <td>{{ vehicle.info.key }} <small ng-if="vehicle.info.secret" class="text-warning"><br/>Secret: {{ vehicle.info.secret }}</small></td>
+-->
+            <td>
+              <div ng-if="vehicle.info.key">{{ vehicle.info.key }} <small class="text-warning"><br/>Secret: {{ vehicle.info.secret }}</small></div>
+              <div ng-if="!vehicle.info.key" class="text-danger">Hidden</div>
+            </td>
+            <td>{{ vehicle.info.created_at }}</td>
+<!--
+            <td><a href="#!/vehicles/{{ vehicle.info.id }}/edit" class="btn btn-xs btn-success">Edit</a></td>
+-->
+            <td>
+              <button ng-click="generateVehicleKey(vehicle.info.id)" class="btn btn-xs btn-danger">Generate New Key</button>
+              <button ng-click="deleteVehicle(vehicle.info.id)" class="btn btn-xs btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+  </div>
+  <div class="divider col-lg-10 bg-primary"></div>
+</div>
+
+<a class="btn btn-primary add-vehicle-show">Add New Vehicle</a>
+
+<div class="row add-vehicle">
+  <div class="col-lg-6">
+    <form class="form-horizontal" ng-submit="addVehicle()">
+      <fieldset>
+        <legend>New Vehicle</legend>
+        <div class="form-group">
+          <label for="id" class="col-lg-2 control-label">Id</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" ng-model="newVehicle.id" id="id" placeholder="Id">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name" class="col-lg-2 control-label">Name</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" ng-model="newVehicle.name" id="name" placeholder="Name">
+          </div>
+        </div>
+
+<!--
+        <div class="form-group">
+          <label for="sim_sid" class="col-lg-2 control-label">Twilio SIM SID</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" ng-model="newVehicle.sim_sid" id="sim_sid" placeholder="Twilio SIM SID">
+          </div>
+        </div>
+-->
+
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default add-vehicle-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <p class="text-warning" id="add-vehicle-failed"></p>
+      </fieldset>
+    </form>
+  </div>
+</div>

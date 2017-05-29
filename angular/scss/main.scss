@@ -1,0 +1,95 @@
+@import 'reset';
+@import 'bourbon';
+@import 'bootstrap';
+
+// Colors
+$white: #FFFFFF;
+$darkest-grey: #222222;
+$dark-grey: #3d3d3d;
+$grey: #464545;
+$blue: #3498db;
+$purple: #454DE1;
+$green: #00bc8c;
+$red: #e74c3c;
+$peach: #E78F3C;
+$orange: #f39c12;
+//
+
+body {
+  @include font-feature-settings("kern", "liga", "pnum");
+  -webkit-font-smoothing: antialiased;
+  padding-top: 50px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.vehicle {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  h3 {
+    a {
+      font-size: 14px;
+    }
+  }
+  .panel-body {
+    text-align: center;
+    font-size: 24px;
+  }
+  .map-cont {
+    .map {
+      height: 420px;
+      margin-bottom: 40px;
+      p {
+        color: black;
+      }
+      .infowindow-label {
+        margin-left: 15px;
+        margin-right: -5px;
+        margin-top: 15px;
+        h1 {
+          font-size: 24px;
+          margin-bottom: 17px;
+          color: black;
+          text-decoration: underline;
+          text-align: center;
+        }
+        p {
+          font-size: 14px;
+          margin-bottom: 15px;
+          span {
+            font-size: 16px;
+          }
+          span.label {
+            display: inline-block;
+            min-width: 90px;
+          }
+          .value {
+            margin-right: 10px;
+            margin-left: 7px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-vehicle-show {
+  margin-top: 40px;
+}
+
+.add-vehicle {
+  margin-top: 40px;
+  display: none;
+}
+
+.add-driver-show {
+  margin-top: 40px;
+}
+
+.add-driver {
+  margin-top: 40px;
+  display: none;
+}
