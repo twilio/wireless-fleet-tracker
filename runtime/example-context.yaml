@@ -1,12 +1,15 @@
-# webhook account detail
+# required field
 ACCOUNT_SID: AC00000000000000000000000000000000
+AUTH_TOKEN: 00000
+
+# common
 API_KEY: SK00000000000000000000000000000000
 API_SECRET: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+PINCODES:
+  trump: "928462"
 
-# webhook handlers specific
+# Authenticator
 SERVICE_SID: IS000000000000000000000000000000
-
-# used by Authenticator
 TOKEN_TTL: 3600 # in seconds
 
 # FleetManager
