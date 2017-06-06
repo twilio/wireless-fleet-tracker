@@ -6,6 +6,10 @@ Serverless _Twilio Fleet Tracker_ involes 3 separate development process
 - Angular Single Page Application
 - MultiTech Dragonfly hardware
 
+## Prebuilt Assets
+
+If you do not want to build everything yourself, you could skip all steps related to building assets, and take artifacts and instructions from https://github.com/twilio/wireless-fleet-tracker/tree/serverless/assets directly.
+
 ## Preparations
 
 - https://github.com/hellwolf/twilio-runtime-utils
