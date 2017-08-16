@@ -9,7 +9,7 @@ module.exports = function(callbacks) {
   var SyncClient = require("twilio-sync").Client;
   var syncClient;
   var token;
-  var auth = "username=trump&pincode=928462";
+  var auth;
 
   var vehicles = {};
 
@@ -46,10 +46,13 @@ module.exports = function(callbacks) {
           setTimeout(that.updateToken.bind(that), result.ttl*1000 * 0.96); // update token slightly in adance of ttl
         } else {
           console.error("failed to authenticate the user: ", result.error);
+          auth="";
+          callbacks.authFailed(result.error);
         }
       }).fail(function (jqXHR, textStatus, error) {
         console.error("failed to send authentication request:", textStatus, error);
-        setTimeout(that.updateToken.bind(that), 10000); // retry in 10 seconds
+        auth="";
+        callbacks.authFailed(error);
       });
     },
 
@@ -129,12 +132,24 @@ module.exports = function(callbacks) {
       });
     },
 
-    init: function () {
+    checkLoggedIn: function () {
+      if (!auth) {
+        callbacks.authRequired();
+      }
+    },
+
+    login: function (username, password) {
       var that = this;
+      auth = "username=" + username + "&pincode=" + password;
       this.updateToken(function (token) {
         syncClient = new SyncClient(token);
         that.refreshVehicleList();
+        callbacks.onAuthenticated();
       });
+    },
+
+    init: function () {
+      this.checkLoggedIn();
     }
 	};
 };

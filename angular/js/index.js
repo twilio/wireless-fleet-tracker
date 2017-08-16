@@ -10,12 +10,14 @@ require("../scss/main.scss");
 // index.html
 require("../index.html");
 
+var loginView = require("./loginView.js");
 var dashboardView = require("./dashboardView");
 var vehicleView = require("./vehicleView");
 var vehicleListView = require("./vehicleListView");
 var currentView;
 var $currentViewScope;
 
+var auth = {};
 var n_data_map = {};
 var total_speed_map = {};
 var total_driver_scores_map = {};
@@ -63,13 +65,39 @@ window.app = new App({
     if (currentView.onVehicleData) currentView.onVehicleData(vehicle, data);
     if (currentView.onVehicleStats) currentView.onVehicleStats(vehicle, latestStats);
   },
+
+  onAuthenticated: function () {
+    window.location.href = '/#!/dashboard';
+    $currentViewScope.$apply();
+  },
+
+  authFailed: function (reason) {
+    auth.reason = reason;
+    window.location.href = '/#!/login';
+    $currentViewScope.$apply();
+  },
+
+  authRequired: function () {
+    auth.reason = "";
+    window.location.href = '/#!/login';
+  },
 });
 
 angular
   .module("app", [
     'ngRoute'
   ])
+  .controller('LoginViewCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+    $currentViewScope = $scope;
+    $scope.auth = auth;
+    currentView = loginView;
+    loginView.init(app, $scope.auth);
+    $timeout(function () {
+        
+    });
+  }])
   .controller('DashboardViewCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+    app.checkLoggedIn();
     $currentViewScope = $scope;
     $scope.vehicles = app.vehicles;
     currentView = dashboardView;
@@ -86,6 +114,7 @@ angular
     }, 0);
   }])
   .controller('VehicleViewCtrl', ['$routeParams', '$scope', '$timeout', function ($routeParams, $scope, $timeout) {
+    app.checkLoggedIn();
     $currentViewScope = $scope;
     $scope.vehicles = app.vehicles;
     $scope.id = $routeParams.id;
@@ -102,6 +131,7 @@ angular
     }
   }])
   .controller('VehicleListViewCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+    app.checkLoggedIn();
     $currentViewScope = $scope;
     $scope.vehicles = app.vehicles;
     $scope.newVehicle = {};
@@ -130,5 +160,6 @@ angular
       .when('/dashboard', { controller: 'DashboardViewCtrl', templateUrl: "views/dashboard.html" } )
       .when('/vehicles/:id', { controller: 'VehicleViewCtrl', templateUrl: "views/vehicle.html" } )
       .when('/vehicles', { controller: 'VehicleListViewCtrl', templateUrl: "views/vehicle_list.html" } )
+      .when('/login', { controller: 'LoginViewCtrl', templateUrl: 'views/login.html' })
       .otherwise({ redirectTo: '/dashboard' }); 
   }]);
