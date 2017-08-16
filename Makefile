@@ -9,10 +9,18 @@ build-angular:
 assets/index.html: angular/build/assets/index.html
 	cp $< $@
 
-assets/index.min.js: angular/build/assets/index.min.js
+assets/vendor.js: angular/build/assets/vendor.js
+	cp $< $@
+assets/vendor.js.map: angular/build/assets/vendor.js.map
+	cp $< $@
+assets/index.js: angular/build/assets/index.js
+	cp $< $@
+assets/index.js.map: angular/build/assets/index.js.map
 	cp $< $@
 
-build-angular-assets: build-angular assets/index.html assets/index.min.js
+build-angular-assets: build-angular assets/index.html \
+	assets/index.js assets/index.js.map \
+	assets/vendor.js assets/vendor.js.map
 
 .PHONY: prepare-angular build-angular build-angular-assets
 
@@ -31,12 +39,13 @@ prepare: prepare-angular
 build: build-angular-assets build-runtime
 
 dev:
-	(cd angular; ./angular/node_modules/.bin/grunt dev)
+	(cd angular; ./node_modules/.bin/grunt dev)
 
 clean:
 	rm -rf angular/build/assets
 
 full-clean: clean
+	rm -f angular/package-lock.json
 	rm -rf angular/node_modules
 	rm -rf angular/build
 

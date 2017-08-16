@@ -6,7 +6,7 @@ var moment = require("moment");
 
 module.exports = function(callbacks) {
   var $ = require("jquery");
-  var SyncClient = require("twilio-sync").SyncClient;
+  var SyncClient = require("twilio-sync").Client;
   var syncClient;
   var token;
   var auth = "username=trump&pincode=928462";

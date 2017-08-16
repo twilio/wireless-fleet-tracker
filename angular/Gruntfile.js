@@ -1,3 +1,5 @@
+var config = require("./config"); // copy and modify config.example.js
+
 module.exports = function(grunt) {
   var webpack = require("webpack");
   var webpackConfig = require("./webpack.config.js");
@@ -9,15 +11,15 @@ module.exports = function(grunt) {
     webpack: {
       options: webpackConfig,
       build: {
-        plugins: webpackConfig.plugins.concat(
+        plugins: [
           new webpack.optimize.UglifyJsPlugin({
-            test: /.min.js$/,
+            test: /.js$/,
             mangle: {
               except: ["App", "app"]
             },
             sourceMap: true
           })
-        )
+        ]
       }
     },
 
@@ -29,7 +31,7 @@ module.exports = function(grunt) {
         proxy: {
             // redirect all API calls to deployed runtime functions
             "/**": {
-              target: "https://dancing-owl-0368.twil.io", //"http://localhost:4232", //
+              target: config.RUNTIME_DOMAIN,
               changeOrigin: true,
               secure: false
             }
