@@ -74,9 +74,14 @@ $ ./node_modules/.bin/grunt build
 Upload these files to _Twilio Runtime_ assets:
 
 ```
-$ ls -lh build/assets/index.{html,min.js}
--rw-r--r-- 1 zmiao TWILIO\Domain Users 1.3K May 19 17:50 build/assets/index.html
--rw-r--r-- 1 zmiao TWILIO\Domain Users 1.2M May 19 17:50 build/assets/index.min.js
+$ ls -lh angular/build/assets/*.{js,html,js.map}
+-rw-r--r-- 1 zmiao TWILIO\Domain Users 1.7K Aug 16 16:41 angular/build/assets/index.html
+-rw-r--r-- 1 zmiao TWILIO\Domain Users  16K Aug 16 16:41 angular/build/assets/index.js
+-rw-r--r-- 1 zmiao TWILIO\Domain Users  63K Aug 16 16:41 angular/build/assets/index.js.map
+-rw-r--r-- 1 zmiao TWILIO\Domain Users 160K Aug 16 16:41 angular/build/assets/styles.js
+-rw-r--r-- 1 zmiao TWILIO\Domain Users 343K Aug 16 16:41 angular/build/assets/styles.js.map
+-rw-r--r-- 1 zmiao TWILIO\Domain Users 465K Aug 16 16:41 angular/build/assets/vendor.js
+-rw-r--r-- 1 zmiao TWILIO\Domain Users 2.0M Aug 16 16:41 angular/build/assets/vendor.js.map
 ```
 
 

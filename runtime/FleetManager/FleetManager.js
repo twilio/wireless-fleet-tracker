@@ -1,6 +1,6 @@
 var rq = require('request');
 
-const FLEET_URL = "https://preview.twilio.com/ConnectedDevices/Fleets/";
+const FLEET_URL = "https://preview.twilio.com/DeployedDevices/Fleets/";
 
 var AccessToken = Twilio.jwt.AccessToken;
 

@@ -1,0 +1,4 @@
+/* binary
+/.gitattributes test diff
+/README.md text diff
+/*.txt text diff
