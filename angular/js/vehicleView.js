@@ -6,6 +6,13 @@ var map;
 var infowindows = {};
 
 var vehicleView = {
+  init: function ($scope) {
+    map = vehicleView.initMapElement('map');
+    $scope.vehicle.driving_data.forEach(function (data) {
+      vehicleView.onVehicleData($scope.vehicle.info.id, data);
+    });
+  },
+
   initMapElement: function (mapElementName) {
     var map = new google.maps.Map(document.getElementById(mapElementName), {
       zoom: 14
@@ -48,7 +55,6 @@ var vehicleView = {
 
     $('.' + vehicleElemementName + ' .miles span').text(stats.miles);
     $('.' + vehicleElemementName + ' .speed span').text(stats.avg_speed);
-    $('.' + vehicleElemementName + ' .driver_score span').text(100 - stats.driver_score);
     $('.' + vehicleElemementName + ' .fuel span').text(stats.fuel);
     $('.' + vehicleElemementName + ' .brake span').text(stats.brake);
 
@@ -64,10 +70,6 @@ var vehicleView = {
     }
 
     $('.' + vehicleElemementName + ' .runtime').text(runtime_string);    
-  },
-
-  init: function () {
-    map = vehicleView.initMapElement('map');
   },
 
   onVehicleData: function (vehicle, data) {

@@ -16,9 +16,9 @@ describe('Authenticator main test cases', function () {
         TwilioRuntimeHelper.runTestDataJSON(contextFile, descriptorFile, {username: "trump", pincode: "928462"}, function (err, result) {
             expect(result.success).to.true;
             expect(result.username).to.equal("trump");
-            let token = jwt.decode(result.token, null, true /* noVerify */);
-            expect(token.grants.data_sync).to.not.equal.null;
-            expect(token.exp - token.iat).to.equal(3600); 
+            let sync_token = jwt.decode(result.sync_token, null, true /* noVerify */);
+            expect(sync_token.grants.data_sync).to.not.equal.null;
+            expect(sync_token.exp - sync_token.iat).to.equal(3600); 
             done();
         })
     });

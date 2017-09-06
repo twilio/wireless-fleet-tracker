@@ -22,7 +22,7 @@ var n_data_map = {};
 var total_speed_map = {};
 var total_driver_scores_map = {};
 var current_infowindow = null;
-var latestStats = null;
+var latestStats = {};
 
 function initVehicleStats(vehicle) {
   if (!(vehicle.info.id in n_data_map)) {
@@ -51,7 +51,7 @@ function updateVehicleStats(vehicle, data) {
   total_speed_map[vehicle.info.id] =  total_speed_map[vehicle.info.id] + data.speed;
   total_driver_scores_map[vehicle.info.id] = total_driver_scores_map[vehicle.info.id] + data.avgT;
 
-  latestStats = stats;
+  latestStats[vehicle.info.id] = stats;
 }
 
 var App = require("./app");
@@ -63,7 +63,7 @@ window.app = new App({
   onVehicleData: function (vehicle, data) {
     updateVehicleStats(vehicle, data);
     if (currentView.onVehicleData) currentView.onVehicleData(vehicle, data);
-    if (currentView.onVehicleStats) currentView.onVehicleStats(vehicle, latestStats);
+    if (currentView.onVehicleStats) currentView.onVehicleStats(vehicle, latestStats[vehicle.info.id]);
   },
 
   onAuthenticated: function () {
@@ -91,42 +91,33 @@ angular
     $currentViewScope = $scope;
     $scope.auth = auth;
     currentView = loginView;
-    loginView.init(app, $scope.auth);
     $timeout(function () {
-        
+      loginView.init(app, $scope.auth);
     });
   }])
   .controller('DashboardViewCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
     app.checkLoggedIn();
     $currentViewScope = $scope;
+    $scope.app = app;
     $scope.vehicles = app.vehicles;
     currentView = dashboardView;
-    dashboardView.init();
     // use timeout service to wait until view is loaded
     $timeout(function () {
-      for (var id in $scope.vehicles) {
-        var vehicle = $scope.vehicles[id];
-        vehicle.driving_data.forEach(function (data) {
-          dashboardView.onVehicleData(vehicle, data);
-        });
-        dashboardView.onVehicleStats(vehicle, latestStats);
-      }
+      dashboardView.init($scope, latestStats);
     }, 0);
   }])
   .controller('VehicleViewCtrl', ['$routeParams', '$scope', '$timeout', function ($routeParams, $scope, $timeout) {
     app.checkLoggedIn();
     $currentViewScope = $scope;
+    $scope.app = app;
     $scope.vehicles = app.vehicles;
     $scope.id = $routeParams.id;
-    var vehicle = app.vehicles[$routeParams.id];
+    $scope.vehicle = app.vehicles[$routeParams.id];
     currentView = vehicleView;
-    vehicleView.init();
-    if (vehicle) {
+    if ($scope.vehicle) {
       $timeout(function () {
-        vehicle.driving_data.forEach(function (data) {
-          vehicleView.onVehicleData(vehicle.info.id, data);
-        });
-        vehicleView.onVehicleStats(vehicle, latestStats);
+        vehicleView.init($scope);
+        vehicleView.onVehicleStats($scope.vehicle, latestStats[$scope.vehicle.info.id]);
       }, 0);
     }
   }])

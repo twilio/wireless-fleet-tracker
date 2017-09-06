@@ -41,7 +41,7 @@ build-runtime: assets/Authenticator-deployment-instructions.txt assets/FleetMana
 
 prepare: prepare-angular
 
-build: build-angular-assets build-runtime
+build: build-angular-assets #build-runtime
 
 dev:
 	(cd angular; ./node_modules/.bin/grunt dev)

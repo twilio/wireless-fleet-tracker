@@ -33,7 +33,13 @@ module.exports = function(grunt) {
             "/**": {
               target: config.RUNTIME_DOMAIN,
               changeOrigin: true,
-              secure: false
+              secure: false,
+              bypass: function (req, res, proxyOptions) {
+                console.log("req.url", req.url);
+                if (req.url === "/") {
+                    return "/index.html";
+                }
+              },
             }
         }
       },

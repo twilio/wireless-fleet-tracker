@@ -28,7 +28,7 @@ exports.handler = function(context, event, callback) {
     case 'add': {
       let vehicle_id = event.vehicle_id;
       if (!vehicle_id) return callback(null, { success: false, error: "vehicle_id is not defined in event" });
-      if (!vehicle_id.match(/^[a-zA-Z0-9]+$/)) return callback("Invalid vehicle id (use english alphabet and numbers only): " + vehicle_id);      
+      if (!vehicle_id.match(/^[a-zA-Z0-9-]+$/)) return callback(null, { success: false, error: "Invalid vehicle id (use english alphabet and numbers only): " + vehicle_id });
       let vehicle_name = event.vehicle_name;
       if (!vehicle_name) return callback(null, { success: false, error: "vehicle_name is not defined in event" });
       rq.post(fleetUrl + "/Devices",  {form: {

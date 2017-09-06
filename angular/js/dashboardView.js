@@ -6,9 +6,17 @@ var all_maps;
 var infowindows_map;
 
 var dashboardView = {
-  init: function () {
+  init: function ($scope, latestStats) {
     all_maps = {};
     infowindows_map = {};
+
+    for (var id in $scope.vehicles) {
+      var vehicle = $scope.vehicles[id];
+      vehicle.driving_data.forEach(function (data) {
+        dashboardView.onVehicleData(vehicle, data);
+        dashboardView.onVehicleStats(vehicle, latestStats[vehicle.info.id]);
+      });
+    }
   },
 
   onVehicleData: function (vehicle, data) {
