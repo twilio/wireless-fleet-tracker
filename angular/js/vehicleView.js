@@ -4,6 +4,7 @@ var $ = require("jquery");
 
 var map;
 var infowindows = {};
+var current_infowindow;
 
 var vehicleView = {
   init: function ($scope) {
@@ -29,11 +30,11 @@ var vehicleView = {
     });
 
     var content_string = '<div class="infowindow-label"> \
-                            <h1>Point data</h1> \
-                            <p><span class="label label-default">Distance:</span> <span class="value">'+(data.miles).toFixed(0)+' Miles</span></p> \
-                            <p><span class="label label-default">Speed:</span> <span class="value">'+(data.speed).toFixed(0)+' mph</span></p> \
-                            <p><span class="label label-default">Fuel:</span> <span class="value">'+(data.fuel).toFixed(0)+'%</span></p> \
-                          </div>';
+                            <h1>Point data</h1>' +
+                            (!!data.miles ? '<p><span class="label label-default">Distance:</span> <span class="value">'+data.miles.toFixed(0)+' Miles</span></p>' : '') +
+                            (!!data.speed ? '<p><span class="label label-default">Speed:</span> <span class="value">'+data.speed.toFixed(0)+' mph</span></p>' : '') +
+                            (!!data.fuel ? '<p><span class="label label-default">Fuel:</span> <span class="value">'+data.fuel.toFixed(0)+'%</span></p>' : '') +
+                          '</div>';
 
     var infowindow = new google.maps.InfoWindow({
       content: content_string,

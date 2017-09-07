@@ -61,9 +61,11 @@ window.app = new App({
   },
 
   onVehicleData: function (vehicle, data) {
-    updateVehicleStats(vehicle, data);
     if (currentView.onVehicleData) currentView.onVehicleData(vehicle, data);
-    if (currentView.onVehicleStats) currentView.onVehicleStats(vehicle, latestStats[vehicle.info.id]);
+    if (vehicle.info.type === "CAR") {
+      updateVehicleStats(vehicle, data);
+      if (currentView.onVehicleStats) currentView.onVehicleStats(vehicle, latestStats[vehicle.info.id]);
+    }
   },
 
   onAuthenticated: function () {
