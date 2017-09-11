@@ -211,7 +211,7 @@ module.exports = function(callbacks) {
 
     init: function () {
       this.checkLoggedIn();
-      this.login("trump", "2016");
+      //this.login("trump", "2016");
     }
 	};
 };
