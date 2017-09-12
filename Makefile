@@ -37,7 +37,11 @@ assets/FleetManager-deployment-instructions.txt: runtime/FleetManager/descriptor
 
 build-runtime: assets/Authenticator-deployment-instructions.txt assets/FleetManager-deployment-instructions.txt
 
-.PHONY: build-runtime
+clean-runtime:
+	rm -f assets/Authenticator-deployment-instructions.txt
+	rm -f assets/FleetManager-deployment-instructions.txt
+
+.PHONY: clean-runtime build-runtime
 
 prepare: prepare-angular
 
