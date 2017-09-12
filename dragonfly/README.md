@@ -1,6 +1,5 @@
 
 # Fleet Tracker Blueprint
-##### Developing MultiTech Dragonfly hardware
 Full instructions for this tutorial can be found in the [Fleet Tracker Blueprint](https://www.twilio.com/wireless/blueprints/fleet-traker/). Below you will find the minimum steps necessary to compile the Dragonfly custom code.
 
 1. Create an [ARMmbed developer account](https://developer.mbed.org/)

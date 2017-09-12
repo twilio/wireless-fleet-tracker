@@ -27,8 +27,7 @@ Serverless _Twilio Fleet Tracker_ involes 3 separate development process
 If you do not want to build everything yourself, you could skip all steps related to building assets, and take artifacts and instructions from https://github.com/twilio/wireless-fleet-tracker/tree/serverless/assets directly.
 
 ## Preparations
-- https://github.com/hellwolf/twilio-runtime-utils
-- Build twilio-runtime-utils with `make build`
+- Build [twilio-runtime-utils](https://github.com/hellwolf/twilio-runtime-utils) with `make build`
 - Setup PATH to twilio-runtime-utils.sh shell script
 - Checkout `twilio-connected-devices` branch of [wireless-co-pilot](https://code.hq.twilio.com/zmiao/wireless-co-pilot/tree/twilio-connected-devices)
 
