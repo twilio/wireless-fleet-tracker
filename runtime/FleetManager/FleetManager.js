@@ -1,10 +1,9 @@
-var rq = require('request');
-
-const FLEET_URL = "https://preview.twilio.com/DeployedDevices/Fleets/";
-
 var AccessToken = Twilio.jwt.AccessToken;
 
 exports.handler = function(context, event, callback) {
+  //let client = context.getTwilioClient(); // this returns a wrong version of Twilio, waiting for the fix
+  let client = new Twilio(context.ACCOUNT_SID, context.AUTH_TOKEN);
+  let DeployedDevices = client.preview.deployed_devices;
   let username = event.username;
   let pincode = event.pincode;
 
@@ -13,16 +12,16 @@ exports.handler = function(context, event, callback) {
   if (!Authorization.auth(context, username, pincode)) return callback(null, { success: false, error: "username or token provided is invalid" });
 
   let op = event.op;
-  let fleetUrl = FLEET_URL + context.FLEET_SID;
 
   switch (op) {
     case 'list': {
-      // WARNING!! only support up to 50 devices for simplicity, improve it using pagination API
-      rq.get(fleetUrl + "/Devices", function (error, response, body) {
-          if (error) return callback(null, { success: false, error: error });
-          if (response.statusCode !== 200) return callback(null, { success: false, error: body });
-          callback(null, { success: true, vehicles: JSON.parse(body).devices });
-      }).auth(context.API_KEY, context.API_SECRET);
+      DeployedDevices.fleets(context.FLEET_SID).devices.list()
+      .then(function (response) {
+          callback(null, { success: true, vehicles: response });
+      })
+      .catch(function (error) {
+          callback(null, { success: false, error: error.toString() });
+      });
     }
     break;
     case 'add': {
@@ -31,44 +30,53 @@ exports.handler = function(context, event, callback) {
       if (!vehicle_id.match(/^[a-zA-Z0-9-]+$/)) return callback(null, { success: false, error: "Invalid vehicle id (use english alphabet and numbers only): " + vehicle_id });
       let vehicle_name = event.vehicle_name;
       if (!vehicle_name) return callback(null, { success: false, error: "vehicle_name is not defined in event" });
-      rq.post(fleetUrl + "/Devices",  {form: {
-          FriendlyName: vehicle_name,
-          UniqueName: vehicle_id
-        }}, function (error, response, body) {
-          if (error) return callback(null, { success: false, error: error });
-          if (response.statusCode !== 201) return callback(null, { success: false, error: body });
-          let vehicle = JSON.parse(body);
-          rq.post(fleetUrl + "/Keys", {form:{
-            DeviceSid: vehicle.sid
-          }}, function (error, response, body) {
-            if (response.statusCode !== 201) return callback(null, { success: false, error: body });
-            callback(null, { success: true, vehicle: vehicle, key: JSON.parse(body) });
-          }).auth(context.API_KEY, context.API_SECRET);
-      }).auth(context.API_KEY, context.API_SECRET);
+      let result = { success: true };
+      DeployedDevices.fleets(context.FLEET_SID).devices.create({
+          friendlyName: vehicle_name,
+          uniqueName: vehicle_id
+      })
+      .then(function (response) {
+          result.vehicle = response;
+          return DeployedDevices.fleets(context.FLEET_SID).keys.create({
+            deviceSid: response.sid
+          })
+      })
+      .then(function (response) {
+          result.key = response;
+          callback(null, result);
+      })
+      .catch(function (error) {
+          if (error) return callback(null, { success: false, error: error.toString() });
+      });
     }
     break;
     case 'delete': {
       let vehicle_id = event.vehicle_id;
       if (!vehicle_id) return callback(null, { success: false, error: "vehicle_id is not defined in event" });
-      rq.delete(fleetUrl + "/Devices/" + encodeURIComponent(vehicle_id), function (error, response, body) {
-        if (response.statusCode !== 204) return callback(null, { success: false, error: body });
-        callback(null, { success: true });
-      }).auth(context.API_KEY, context.API_SECRET);
+      DeployedDevices.fleets(context.FLEET_SID).devices(vehicle_id).remove()
+      .then(function () {
+        callback(null, { success: true });      
+      })
+      .catch(function (error) {
+        callback(null, { success: false, error: error.toString() });
+      });
     }
     break;
     case 'genkey': {
       let vehicle_id = event.vehicle_id;
       if (!vehicle_id) return callback(null, { success: false, error: "vehicle_id is not defined in event" });
-      rq.get(fleetUrl + "/Devices/" + vehicle_id, function (error, response, body) {
-        if (error) return callback(null, { success: false, error: error });
-        let vehicle = JSON.parse(body);
-        rq.post(fleetUrl + "/Keys", {form:{
-          DeviceSid: vehicle.sid
-        }}, function (error, response, body) {
-          if (response.statusCode !== 201) return callback(null, { success: false, error: body });
-          callback(null, { success: true, vehicle_id: vehicle_id, key: JSON.parse(body) });
-        }).auth(context.API_KEY, context.API_SECRET);
-      }).auth(context.API_KEY, context.API_SECRET);
+      DeployedDevices.fleets(context.FLEET_SID).devices(vehicle_id).fetch()
+      .then(function (response) {
+        return DeployedDevices.fleets(context.FLEET_SID).keys.create({
+          deviceSid: response.sid
+        });        
+      })
+      .then(function (response) {
+        callback(null, { success: true, vehicle_id: vehicle_id, key: response });      
+      })
+      .catch(function (error) {
+        callback(null, { success: false, error: error.toString() });
+      });      
     }
     break;
     default:

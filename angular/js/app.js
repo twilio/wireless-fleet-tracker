@@ -30,7 +30,7 @@ module.exports = function(callbacks) {
 
   function subscribeToVehicleData(id) {
     syncClient.list("vehicle-" + id + "-data").then(function (list) {
-      list.getItems({ limit: 100 }).then(function (page) {
+      list.getItems({ limit: 100, order: "desc" }).then(function (page) {
         console.info("items arrived", id, page.items.length);
         vehicles[id].driving_data = page.items.map(function (item) {
           item.data.value.id = item.index;
@@ -78,18 +78,18 @@ module.exports = function(callbacks) {
       $.get("/fleetmanager?"+ auth + "&op=list", function (result) {
         if (result.success) {
           $.when.apply($, $.map(result.vehicles, function (vehicle) {
-            var id = vehicle.unique_name;
+            var id = vehicle.uniqueName;
             vehicles[id] = {
               info: {
                 id: id,
-                name: vehicle.friendly_name,
+                name: vehicle.friendlyName,
                 created_at: moment(vehicle.date_created).format(MOMENT_FORMAT)
               },
               driving_data: []
             };
             return fetchVehicleExtraInfo(id).then(function (extraInfo) {
               vehicles[id].info = $.extend(vehicles[id].info, extraInfo);
-              subscribeToVehicleData(vehicle.unique_name);
+              subscribeToVehicleData(vehicle.uniqueName);
             });
           })).done(function () {
             callbacks.refresh();
@@ -98,7 +98,7 @@ module.exports = function(callbacks) {
           console.error("failed to list vehicles:", result);
         }
       }).fail(function (jqXHR, textStatus, error) {
-        console.error("failed to send list vehicles request:", textStatus, error);
+        console.error("failed to send list vehicles request:", textStatus, error.toString());
       });
     },
 
@@ -114,18 +114,18 @@ module.exports = function(callbacks) {
           };
           var vehicleAdded = {
             info: $.extend({
-              id: result.vehicle.unique_name,
-              name: result.vehicle.friendly_name,
+              id: result.vehicle.uniqueName,
+              name: result.vehicle.friendlyName,
               created_at: moment(result.vehicle.date_created).format(MOMENT_FORMAT),
               key: result.key.sid,
               secret: result.key.secret
             }, extraInfo),
             driving_data: []
           };
-          vehicles[result.vehicle.unique_name] = vehicleAdded;          
-          initVehicleExtraInfo(result.vehicle.unique_name, extraInfo)
+          vehicles[result.vehicle.uniqueName] = vehicleAdded;          
+          initVehicleExtraInfo(result.vehicle.uniqueName, extraInfo)
           .then(function () {
-            subscribeToVehicleData(result.vehicle.unique_name);
+            subscribeToVehicleData(result.vehicle.uniqueName);
             callback(null, vehicleAdded);
           });
         } else {
@@ -133,7 +133,7 @@ module.exports = function(callbacks) {
         }
       }).fail(function (jqXHR, textStatus, error) {
         callback({success: false, error: error});
-        console.error("failed to send add vehicle request:", textStatus, error);
+        console.error("failed to send add vehicle request:", textStatus, error.toString());
       });
     },
 
@@ -146,7 +146,7 @@ module.exports = function(callbacks) {
           console.error("failed to delete vehicle", result);
         }
       }).fail(function (jqXHR, textStatus, error) {
-        console.error("failed to send delete vehicle request:", textStatus, error);
+        console.error("failed to send delete vehicle request:", textStatus, error.toString());
       });
     },
 
@@ -160,7 +160,7 @@ module.exports = function(callbacks) {
           console.error("failed to generate key", result);
         }
       }).fail(function (jqXHR, textStatus, error) {
-        console.error("failed to send generate key request:", textStatus, error);
+        console.error("failed to send generate key request:", textStatus, error.toString());
       });
     },
 

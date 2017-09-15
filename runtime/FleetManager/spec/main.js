@@ -20,8 +20,8 @@ describe('FleetManager main test cases', function () {
             .then(function(data) {
                 let promises = [];
                 data.vehicles.forEach(function (v) {
-                    console.log("deleting old vehicle: " + v.unique_name);
-                    promises.push(TwilioRuntimeHelper.runTestDataJSON(contextFile, descriptorFile, {username: "trump", pincode: "928462", op: "delete", vehicle_id: v.unique_name}));
+                    console.log("deleting old vehicle: " + v.uniqueName);
+                    promises.push(TwilioRuntimeHelper.runTestDataJSON(contextFile, descriptorFile, {username: "trump", pincode: "928462", op: "delete", vehicle_id: v.uniqueName}));
                 });
                 return Promise.all(promises);
             })
@@ -32,11 +32,12 @@ describe('FleetManager main test cases', function () {
     it('add/list/genkey/delete ops', function (done) {
         let oldKey = null;
         let vehicleId = randomString();
+        let vehicleSid;
         console.log("creating new vehicle: " + vehicleId);
         TwilioRuntimeHelper.runTestDataJSON(contextFile, descriptorFile, {username: "trump", pincode: "928462", op: "add", vehicle_id: vehicleId, vehicle_name: "BMW-" + vehicleId})
             .then((data) => {
                 expect(data.success).to.be.true;
-                expect(data.vehicle.unique_name).to.equal(vehicleId);
+                expect(data.vehicle.uniqueName).to.equal(vehicleId);
                 expect(data.key.secret).to.be.a('string');
                 oldKey = data.key;
                 console.log("listing vehicles and find created one");
@@ -44,13 +45,15 @@ describe('FleetManager main test cases', function () {
             })
             .then((data) => {
                 expect(data.success).to.be.true;
-                let vehicle = data.vehicles.find((v) => v.unique_name === vehicleId);
+                let vehicle = data.vehicles.find((v) => v.uniqueName === vehicleId);
+                vehicleSid = vehicle.sid;
                 expect(vehicle).to.not.be.an('undefined');
                 console.log("generate new key for created vehicle");
                 return TwilioRuntimeHelper.runTestDataJSON(contextFile, descriptorFile, {username: "trump", pincode: "928462", op: "genkey", vehicle_id: vehicleId});
             })
             .then((data) => {
                 expect(data.success).to.be.true;
+                expect(data.key.deviceSid).to.equal(vehicleSid);
                 expect(data.key.secret).to.be.a('string');
                 expect(oldKey.sid).to.not.equal(data.key.sid);
                 console.log("delete created vehicle");
