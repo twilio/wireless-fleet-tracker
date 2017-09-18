@@ -21,7 +21,6 @@ var auth = {};
 var n_data_map = {};
 var total_speed_map = {};
 var total_driver_scores_map = {};
-var current_infowindow = null;
 var latestStats = {};
 
 function initVehicleStats(vehicle) {

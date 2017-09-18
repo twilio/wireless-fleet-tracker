@@ -4,24 +4,35 @@ var $ = require("jquery");
 
 var map;
 var infowindows = {};
-var current_infowindow;
+var vehicleId;
 
 var vehicleView = {
   init: function ($scope) {
+    vehicleId = $scope.id;
     map = vehicleView.initMapElement('map');
     $scope.vehicle.driving_data.forEach(function (data) {
-      vehicleView.onVehicleData($scope.vehicle.info.id, data);
+      vehicleView.onVehicleData($scope.vehicle, data);
     });
   },
 
-  initMapElement: function (mapElementName) {
+  onVehicleData: function (vehicle, data) {
+    console.log("vehicle.info", vehicle.info);
+    if (vehicle.info.id != vehicleId) return;
+    vehicleView.addDataToMap(map, infowindows, data);
+  },
+
+  onVehicleStats: function (vehicle, stats) {
+    vehicleView.updateStats('vehicle', stats);
+  },
+
+  /* static */ initMapElement: function (mapElementName) {
     var map = new google.maps.Map(document.getElementById(mapElementName), {
       zoom: 14
     });
     return map;
   },
 
-  addDataToMap: function (map, infowindows, data) {
+  /* static */ addDataToMap: function (map, infowindows, data) {
     var latLon = { lat: data.lat, lng: data.lon}
     var marker = new google.maps.Marker({
       position: latLon,
@@ -43,15 +54,15 @@ var vehicleView = {
     map.panTo(marker.getPosition());
 
     google.maps.event.addListener(marker, 'click', function(e) {
-      if(current_infowindow) {
-        current_infowindow.close();
+      if('_current' in infowindows) {
+        infowindows['_current'].close();
       }
       infowindows[this.getTitle()].open(map, this);
-      current_infowindow = infowindows[this.getTitle()];
+      infowindows['_current'] = infowindows[this.getTitle()];
     });
   },
 
-  updateStats: function (vehicleElemementName, stats) {
+  /* static */ updateStats: function (vehicleElemementName, stats) {
     if (!stats) return;
 
     $('.' + vehicleElemementName + ' .miles span').text(stats.miles);
@@ -72,14 +83,6 @@ var vehicleView = {
 
     $('.' + vehicleElemementName + ' .runtime').text(runtime_string);    
   },
-
-  onVehicleData: function (vehicle, data) {
-    vehicleView.addDataToMap(map, infowindows, data);
-  },
-
-  onVehicleStats: function (vehicle, stats) {
-    vehicleView.updateStats('vehicle', stats);
-  }  
 };
 
 module.exports = vehicleView;

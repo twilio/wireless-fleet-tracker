@@ -32,7 +32,7 @@ module.exports = function(callbacks) {
     syncClient.list("vehicle-" + id + "-data").then(function (list) {
       list.getItems({ limit: 100, order: "desc" }).then(function (page) {
         console.info("items arrived", id, page.items.length);
-        vehicles[id].driving_data = page.items.map(function (item) {
+        vehicles[id].driving_data = page.items.reverse().map(function (item) {
           item.data.value.id = item.index;
           callbacks.onVehicleData(vehicles[id], item.data.value);
           return item.data.value;
