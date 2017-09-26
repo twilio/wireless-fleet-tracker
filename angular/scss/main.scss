@@ -13,16 +13,186 @@ $green: #00bc8c;
 $red: #e74c3c;
 $peach: #E78F3C;
 $orange: #f39c12;
-//
+$wireless: #7D60A9;
+$tred: #F22F46;
+$tblue: #0D122B;
+$chalk: #F5F5F5;
+$ash: #E8E8E8;
+$smoke: #94979B;
 
 body {
   @include font-feature-settings("kern", "liga", "pnum");
   -webkit-font-smoothing: antialiased;
   padding-top: 50px;
+  background-color: white;
+  color: $tblue;
+}
+
+a:link {
+  color: $tred;
+  text-decoration: none;
+  border-bottom: 1px solid $tblue;
+}
+
+a:hover {
+  color: white;
+  border-bottom-color: $tred;
+}
+
+select {
+  border: 1px solid $tblue;
 }
 
 h1 {
   margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.add-vehicle-show {
+  margin-top: 40px;
+  background-color: $green;
+  border: none;
+}
+
+.add-vehicle {
+  margin-top: 40px;
+  display: none;
+}
+
+.btn-primary {
+  background-color: $green;
+}
+
+.btn-primary:hover {
+  background-color: #008966 !important;
+  border-color: #007f5e !important;
+}
+
+.edit-sensor {
+  margin-top: 40px;
+  display: none;
+  color: $tblue;
+}
+
+.alerts-list {
+  color: $tblue;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  select {
+    display: inline;
+    height: auto;
+    width: auto;
+    border: 1px solid $tblue;
+  }
+  select:focus {
+    border: 1px solid $tblue;
+  }
+}
+
+.archive-view {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.selectpicker {
+  color: black;
+}
+
+.navbar-custom {
+  background-color: $tred !important;
+  a {
+    color: white;
+    border-bottom: none;
+  }
+  :link,
+  :hover,
+  :focus {
+    color: white;
+    background-color: $tred !important;
+  }
+}
+
+.chalk-background {
+  background-color: $chalk !important;
+  color: $tblue;
+  input,
+  p
+  {
+    width:100%;
+  }
+  a {
+    color: $tblue;
+    border-bottom: 1px solid $tblue;
+  }
+  a:hover {
+    border-bottom-color: $tred;
+    text-decoration: none;
+  }
+  a:focus {
+    text-decoration: none;
+  }
+  label {
+    margin-left: 5px;
+  }
+  p {
+    color: $smoke;
+    margin: 5px 0px 0px 5px;
+  }
+  .btn-primary,
+  .btn-default {
+    border: none;
+  }
+}
+
+h1,
+h2,
+h3 span {
+  color: $tblue !important;
+}
+
+.bs-component {
+  td,
+  th {
+    color: $tblue;
+  }
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: $chalk;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: $ash;
+}
+
+.navigate-archive {
+  text-align: center;
+  color: $tblue;
+  a {
+    color: $tblue;
+    text-decoration: none;
+    border-bottom-color: 1px solid $tblue;
+  }
+  a:hover {
+    border-bottom-color: $tred;
+  }
+}
+
+.archive-notification {
+  color: $tblue;
+}
+
+@media only screen and (min-width : 1000px) {
+  .sensor-feed {
+    margin: 0 auto;
+    max-width: 703px;
+  }
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
 
 .vehicle {
@@ -102,8 +272,6 @@ h1 {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     padding-top: 60px;
 }
 
@@ -118,7 +286,7 @@ h1 {
 
 /* Set a style for all buttons */
 .login-form > button {
-    background-color: #4CAF50;
+    background-color: $green;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;

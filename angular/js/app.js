@@ -13,7 +13,6 @@ module.exports = function(callbacks) {
 
   var vehicles = {};
 
-
   function initVehicleExtraInfo(id, extraInfo) {
     return syncClient.document("vehicle-" + id + "-info").then(function (document) {
       console.log("initVehicleExtraInfo", id, extraInfo);
@@ -211,7 +210,7 @@ module.exports = function(callbacks) {
 
     init: function () {
       this.checkLoggedIn();
-      //this.login("twilio", "2016");
+      //this.login("twilio", "wireless");
     }
 	};
 };

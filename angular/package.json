@@ -1,26 +1,25 @@
 {
   "name": "twilio-fleet-tracker-ui",
   "version": "1.0.0",
-  "description": "Tracking your fleet with twilio wireless SIM card and connected devices services. This package includes its angular UI.",
+  "description": "Create a Twilio-powered Fleet Tracker that uses off-the-shelf components to track and log: miles driven, hours of uptime and downtime, locations, average speed, and fuel consumption. This package includes its angular UI.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twilio/wireless-co-pilot.git"
+    "url": "git+https://github.com/twilio/wireless-fleet-tracker.git"
   },
   "keywords": [
     "twilio",
     "twilio-sync",
     "iot"
   ],
-  "author": "zmiao@twilio.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/twilio/wireless-co-pilot/issues"
+    "url": "https://github.com/twilio/wireless-fleet-tracker/issues"
   },
-  "homepage": "https://github.com/twilio/wireless-co-pilot#readme",
+  "homepage": "https://github.com/twilio/wireless-fleet-tracker#readme",
   "devDependencies": {},
   "dependencies": {
     "bootstrap": ">=3.0.2",

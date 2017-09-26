@@ -1,4 +1,4 @@
-<h1>Active Vehicles</h1>
+<h1>Active Fleet Trackers</h1>
 
 <h3 ng-hide="vehicles.length" class="ng-hide">There are currently no vehicles on the road.</h3>
 
@@ -11,9 +11,11 @@
     </div>
   </div>
   <div class="row">
+<!-- 
     <div class="col-lg-4 col-lg-offset-4">
       <button class="btn btn-primary btn-call" ng-click="app.call(vehicle, $event.currentTarget)">Call</button>
     </div>
+-->
   </div>
   <div class="row" ng-if="vehicle.info.type == 'CAR'">
     <div class="col-lg-2 col-lg-offset-1">

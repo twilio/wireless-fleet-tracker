@@ -1,3 +1,10 @@
+global.Authorization = {
+  auth: function (context, username, pincode) {
+    var pincodes = JSON.parse(context.PINCODES);
+    return pincodes[username] === pincode;
+  }
+};
+
 const AccessToken = Twilio.jwt.AccessToken;
 const ClientCapability = Twilio.jwt.ClientCapability;
 const SyncGrant = AccessToken.SyncGrant;
