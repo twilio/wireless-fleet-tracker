@@ -1,0 +1,29 @@
+{
+  "name": "twilio-fleet-tracker-runtime",
+  "version": "1.0.0",
+  "description": "Tracking your fleet with twilio wireless SIM card and connected devices services. This package include its runtime functions.",
+  "main": "app.js",
+  "scripts": {
+    "test": "twilio-runtime-exec ./node_modules/.bin/mocha --timeout 20000 specs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twilio/wireless-co-pilot.git"
+  },
+  "keywords": [
+    "twilio",
+    "twilio-sync",
+    "iot"
+  ],
+  "author": "zmiao@twilio.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twilio/wireless-co-pilot/issues"
+  },
+  "homepage": "https://github.com/twilio/wireless-co-pilot#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "jwt-simple": "^0.5.1",
+    "mocha": "^3.4.1"
+  }
+}

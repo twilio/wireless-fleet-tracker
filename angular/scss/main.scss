@@ -1,0 +1,300 @@
+@import 'reset';
+@import 'bourbon';
+@import 'bootstrap';
+
+// Colors
+$white: #FFFFFF;
+$darkest-grey: #222222;
+$dark-grey: #3d3d3d;
+$grey: #464545;
+$blue: #3498db;
+$purple: #454DE1;
+$green: #00bc8c;
+$red: #e74c3c;
+$peach: #E78F3C;
+$orange: #f39c12;
+$wireless: #7D60A9;
+$tred: #F22F46;
+$tblue: #0D122B;
+$chalk: #F5F5F5;
+$ash: #E8E8E8;
+$smoke: #94979B;
+
+body {
+  @include font-feature-settings("kern", "liga", "pnum");
+  -webkit-font-smoothing: antialiased;
+  padding-top: 50px;
+  background-color: white;
+  color: $tblue;
+}
+
+a:link {
+  color: $tred;
+  text-decoration: none;
+  border-bottom: 1px solid $tblue;
+}
+
+a:hover {
+  color: white;
+  border-bottom-color: $tred;
+}
+
+select {
+  border: 1px solid $tblue;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.add-vehicle-show {
+  margin-top: 40px;
+  background-color: $green;
+  border: none;
+}
+
+.add-vehicle {
+  margin-top: 40px;
+  display: none;
+}
+
+.btn-primary {
+  background-color: $green;
+}
+
+.btn-primary:hover {
+  background-color: #008966 !important;
+  border-color: #007f5e !important;
+}
+
+.alerts-list {
+  color: $tblue;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  select {
+    display: inline;
+    height: auto;
+    width: auto;
+    border: 1px solid $tblue;
+  }
+  select:focus {
+    border: 1px solid $tblue;
+  }
+}
+
+.archive-view {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.selectpicker {
+  color: black;
+}
+
+.navbar-custom {
+  background-color: $tred !important;
+  a {
+    color: white;
+    border-bottom: none;
+  }
+  :link,
+  :hover,
+  :focus {
+    color: white;
+    background-color: $tred !important;
+  }
+}
+
+.chalk-background {
+  background-color: $chalk !important;
+  color: $tblue;
+  margin-left: 10px;
+  input,
+  p
+  {
+    width:100%;
+  }
+  a {
+    color: $tblue;
+    border-bottom: 1px solid $tblue;
+  }
+  a:hover {
+    border-bottom-color: $tred;
+    text-decoration: none;
+  }
+  a:focus {
+    text-decoration: none;
+  }
+  label {
+    margin-left: 5px;
+  }
+  p {
+    color: $smoke;
+    margin: 5px 0px 0px 5px;
+  }
+  .btn-primary,
+  .btn-default {
+    border: none;
+  }
+}
+
+h1,
+h2,
+h3 span {
+  color: $tblue !important;
+}
+
+.bs-component {
+  td,
+  th {
+    color: $tblue;
+  }
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: $chalk;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: $ash;
+}
+
+.navigate-archive {
+  text-align: center;
+  color: $tblue;
+  a {
+    color: $tblue;
+    text-decoration: none;
+    border-bottom-color: 1px solid $tblue;
+  }
+  a:hover {
+    border-bottom-color: $tred;
+  }
+}
+
+.archive-notification {
+  color: $tblue;
+}
+
+@media only screen and (min-width : 1000px) {
+  .sensor-feed {
+    margin: 0 auto;
+    max-width: 703px;
+  }
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.vehicle {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  h3 {
+    a {
+      font-size: 14px;
+    }
+  }
+  .panel-body {
+    text-align: center;
+    font-size: 24px;
+  }
+  .map-cont {
+    .map {
+      height: 420px;
+      margin-bottom: 40px;
+      p {
+        color: black;
+      }
+      .infowindow-label {
+        margin-left: 15px;
+        margin-right: -5px;
+        margin-top: 15px;
+        h1 {
+          font-size: 24px;
+          margin-bottom: 17px;
+          color: black;
+          text-decoration: underline;
+          text-align: center;
+        }
+        p {
+          font-size: 14px;
+          margin-bottom: 15px;
+          span {
+            font-size: 16px;
+          }
+          span.label {
+            display: inline-block;
+            min-width: 90px;
+          }
+          .value {
+            margin-right: 10px;
+            margin-left: 7px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-vehicle-show {
+  margin-top: 40px;
+}
+
+.add-vehicle {
+  margin-top: 40px;
+  display: none;
+}
+
+.add-driver-show {
+  margin-top: 40px;
+}
+
+.add-driver {
+  margin-top: 40px;
+  display: none;
+}
+
+.login-form {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    padding-top: 60px;
+}
+
+.login-form > #input-form-username, #input-form-password {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.login-form > button {
+    background-color: $green;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-form > button:hover {
+    opacity: 0.8;
+}
+
+.col-sm-1 {
+  margin-left: 10px;
+  width:100%;
+}

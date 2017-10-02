@@ -1,0 +1,8 @@
+type: function
+name: FleetManager
+description: |
+    Operations for managing the fleet.
+path: /fleetmanager
+script: FleetManager.js
+includes:
+  - ../Common/Authorization.js

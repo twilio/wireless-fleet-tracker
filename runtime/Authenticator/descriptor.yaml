@@ -1,0 +1,8 @@
+type: function
+name: Authenticator
+description: |
+  Generate short-term jwt token for admins to use UI application.
+path: /authenticate
+script: Authenticator.js
+includes:
+  - ../Common/Authorization.js

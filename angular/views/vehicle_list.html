@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1 id="tables">Fleet Trackers</h1>
+    </div>
+    <div class="bs-component">
+      <table class="table table-striped table-hover ">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+<!--
+            <th>Mobile</th>
+            <th>Twilio SIM Sid</th>
+-->
+            <th>Key</th>
+            <th>Created</th>
+            <th>Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="vehicle in vehicles" class="chalk-background vehicle{{vehicle.info.id}}" ng-class="{'text-success': vehicleAdded.info.id === vehicle.info.id}">
+            <td>{{ vehicle.info.id }}</td>
+            <td>{{ vehicle.info.name }}</td>
+<!--            
+            <td>{{ vehicle.info.mobile }}</td>
+            <td>{{ vehicle.info.sim_sid }}</td>
+            <td>{{ vehicle.info.key }} <small ng-if="vehicle.info.secret" class="text-warning"><br/>Secret: {{ vehicle.info.secret }}</small></td>
+-->
+            <td>
+              <div ng-if="vehicle.info.key">{{ vehicle.info.key }} <small class="text-warning"><br/>Secret: {{ vehicle.info.secret }}</small></div>
+              <div ng-if="!vehicle.info.key" class="text-danger">Hidden</div>
+            </td>
+            <td>{{ vehicle.info.created_at }}</td>
+<!--
+            <td><a href="#!/vehicles/{{ vehicle.info.id }}/edit" class="btn btn-xs btn-success">Edit</a></td>
+-->
+            <td>
+              <button ng-click="generateVehicleKey(vehicle.info.id)" class="btn btn-xs btn-danger">Generate New Key</button>
+              <button ng-click="deleteVehicle(vehicle.info.id)" class="btn btn-xs btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+  </div>
+</div>
+
+<a class="btn btn-primary add-vehicle-show">Add New Fleet Tracker</a>
+
+<div class="row add-vehicle chalk-background">
+  <div class="col-lg-12">
+    <form class="form-horizontal" ng-submit="addVehicle()">
+      <fieldset>
+        <h2>Add Fleet Tracker</h2>
+
+        <div class="form-group">
+          <label for="type" class="col-lg-2">Type</label>
+          <div class="col-lg-12">
+            <select type="text" class="form-control" ng-model="newVehicle.type" ng-init="newVehicle.type='BIKE'" id="type" autocomplete="off">
+                <option value="CAR">Car</option>
+                <option value="BIKE">Bicycle</option>
+            </select>
+            <p>What type of vehicle are you tracking?</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="id" class="col-lg-2">Id</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" ng-model="newVehicle.id" id="id" placeholder="Id" autocomplete="off">
+            <p>This can be any unique alphanumeric identifier.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name" class="col-lg-2">Name</label>
+          <div class="col-lg-12">
+            <input type="text" class="form-control" ng-model="newVehicle.name" id="name" placeholder="Name" autocomplete="off">
+            <p>Give your Fleet Tracker a descriptive name for the dashboard.</p>
+          </div>
+        </div>
+
+<!--
+        <div class="form-group">
+          <label for="sim_sid" class="col-lg-2">Twilio SIM Sid</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" ng-model="newVehicle.sim_sid" id="sim_sid" placeholder="Twilio SIM SID">
+          </div>
+        </div>
+-->
+
+        <div class="form-group">
+          <div class="col-lg-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default add-vehicle-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <p class="text-warning" id="add-vehicle-failed"></p>
+      </fieldset>
+    </form>
+  </div>
+</div>

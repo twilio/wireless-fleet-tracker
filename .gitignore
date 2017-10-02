@@ -48,3 +48,5 @@ remote-monitor/node/public/css/main.css
 remote-monitor/node/public/imgs/camera_photos/*
 # compiled electron code
 bean-counter/electron/compiled
+
+package-lock.json

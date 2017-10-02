@@ -1,0 +1,63 @@
+<div class="vehicle chalk-background">
+  <div class="row">
+    <div class="col-lg-12 col-sm-1">
+        <h3>({{ vehicle.info.type }}) |  {{ vehicle.info.name }}</h3>
+        <h4>Total trip time: <span class="runtime">0</span></h4>
+    </div>
+  </div>
+
+  <div class="row map-cont">
+    <div class="col-lg-12">
+      <div class="map" id="map"></div>
+    </div>
+  </div>
+<!-- 
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+      <button class="btn btn-primary btn-call" ng-click="app.call(vehicle, $event.currentTarget)">Call</button>
+    </div>
+  </div>
+-->
+  <div class="row" ng-if="vehicle.info.type == 'CAR'">
+    <div class="col-lg-2 col-lg-offset-1">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Trip Distance</h3>
+        </div>
+        <div class="panel-body miles">
+          <span>00</span> miles
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Average Speed</h3>
+        </div>
+        <div class="panel-body speed">
+          <span>00</span> mph
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Hard Brakes</h3>
+        </div>
+        <div class="panel-body brake">
+          <span>00</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Fuel Guage</h3>
+        </div>
+        <div class="panel-body fuel">
+          <span>00</span>%
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
