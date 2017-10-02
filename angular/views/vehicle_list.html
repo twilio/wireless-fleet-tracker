@@ -9,8 +9,8 @@
           <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Mobile</th>
 <!--
+            <th>Mobile</th>
             <th>Twilio SIM Sid</th>
 -->
             <th>Key</th>
@@ -22,8 +22,8 @@
           <tr ng-repeat="vehicle in vehicles" class="chalk-background vehicle{{vehicle.info.id}}" ng-class="{'text-success': vehicleAdded.info.id === vehicle.info.id}">
             <td>{{ vehicle.info.id }}</td>
             <td>{{ vehicle.info.name }}</td>
+<!--            
             <td>{{ vehicle.info.mobile }}</td>
-<!--
             <td>{{ vehicle.info.sim_sid }}</td>
             <td>{{ vehicle.info.key }} <small ng-if="vehicle.info.secret" class="text-warning"><br/>Secret: {{ vehicle.info.secret }}</small></td>
 -->

@@ -68,12 +68,6 @@ h1 {
   border-color: #007f5e !important;
 }
 
-.edit-sensor {
-  margin-top: 40px;
-  display: none;
-  color: $tblue;
-}
-
 .alerts-list {
   color: $tblue;
   margin-top: 20px;
@@ -117,6 +111,7 @@ h1 {
 .chalk-background {
   background-color: $chalk !important;
   color: $tblue;
+  margin-left: 10px;
   input,
   p
   {
@@ -297,4 +292,9 @@ h3 span {
 
 .login-form > button:hover {
     opacity: 0.8;
+}
+
+.col-sm-1 {
+  margin-left: 10px;
+  width:100%;
 }
